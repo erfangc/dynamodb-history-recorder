@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/dynamodb-stream-copier-tf.iml" filepath="$PROJECT_DIR$/dynamodb-stream-copier-tf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dynamodb-history-recorder.iml" filepath="$PROJECT_DIR$/dynamodb-history-recorder.iml" />
     </modules>
   </component>
 </project>
