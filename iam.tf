@@ -46,7 +46,6 @@ resource "aws_iam_policy" "history_recorder_policy" {
           "Sid" : "VisualEditor0",
           "Effect" : "Allow",
           "Action" : [
-            "dynamodb:PutItem",
             "dynamodb:GetShardIterator",
             "dynamodb:DescribeStream",
             "dynamodb:GetRecords"
@@ -55,6 +54,16 @@ resource "aws_iam_policy" "history_recorder_policy" {
             "arn:aws:dynamodb:*:422873008393:table/${var.dynamodb_table_name}",
             "arn:aws:dynamodb:*:422873008393:table/${var.dynamodb_table_name}/stream/*"
           ]
+        },
+        {
+          "Sid": "VisualEditor2",
+          "Effect": "Allow",
+          "Action": [
+            "dynamodb:PutItem",
+          ],
+          "Resource" : [
+            aws_dynamodb_table.history_table.arn,
+          ],
         },
         {
           "Sid" : "VisualEditor1",
