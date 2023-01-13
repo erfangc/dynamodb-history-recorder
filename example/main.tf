@@ -6,8 +6,8 @@ data "aws_subnet_ids" "subnet_ids" {
   vpc_id = data.aws_vpc.default_vpc.id
 }
 
-resource "aws_dynamodb_table" "requests" {
-  name         = "requests"
+resource "aws_dynamodb_table" "orders" {
+  name         = "orders"
   billing_mode = "PAY_PER_REQUEST"
 
   attribute {
@@ -24,7 +24,7 @@ module "stream-reader" {
   source                          = "../"
   subnet_ids                      = data.aws_subnet_ids.subnet_ids.ids
   vpc_id                          = data.aws_vpc.default_vpc.id
-  dynamodb_table_name             = aws_dynamodb_table.requests.name
+  dynamodb_table_name             = aws_dynamodb_table.orders.name
   dynamodb_user_id_attribute_name = "updatedBy"
-  depends_on                      = [aws_dynamodb_table.requests]
+  depends_on                      = [aws_dynamodb_table.orders]
 }
