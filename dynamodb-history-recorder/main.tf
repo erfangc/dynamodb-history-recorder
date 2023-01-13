@@ -16,8 +16,8 @@ resource "aws_lambda_function" "stream_reader" {
 
   environment {
     variables = {
-      "DYNAMODB_PARTITION_KEY_ATTRIBUTE_NAME" = var.dynamodb_partition_key_attribute_name
-      "DYNAMODB_SORT_KEY_ATTRIBUTE_NAME"      = var.dynamodb_sort_key_attribute_name
+      "DYNAMODB_PARTITION_KEY_ATTRIBUTE_NAME" = data.aws_dynamodb_table.dynamodb_table.hash_key
+      "DYNAMODB_SORT_KEY_ATTRIBUTE_NAME"      = data.aws_dynamodb_table.dynamodb_table.range_key
       "DYNAMODB_HISTORY_TABLE_NAME"           = aws_dynamodb_table.history_table.name
       "DYNAMODB_USER_ID_ATTRIBUTE_NAME"       = var.dynamodb_user_id_attribute_name
     }
