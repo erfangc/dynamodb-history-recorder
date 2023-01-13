@@ -20,7 +20,7 @@ resource "aws_dynamodb_table" "requests" {
     type = "S"
   }
   
-  # it is critical DynamoDB Stream is enabled, and view type contains old and new images
+  # DynamoDB Stream must be enabled, and view type must contains old and new images
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
   hash_key         = "Id"
