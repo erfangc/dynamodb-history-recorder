@@ -20,7 +20,7 @@ resource "aws_dynamodb_table" "history_table" {
 
   billing_mode   = var.history_table_billing_mode
   read_capacity  = var.history_table_read_capacity
-  write_capacity = var.history_table_read_capacity
+  write_capacity = var.history_table_write_capacity
 
   tags = var.history_table_tags
 
