@@ -1,11 +1,9 @@
 variable "subnet_ids" {
   type        = list(string)
-  description = "Subnet(s) in which to run the Lambdas"
 }
 
 variable "vpc_id" {
   type        = string
-  description = "The VPC in which to run the Lambda"
 }
 
 variable "dynamodb_table_name" {
@@ -17,6 +15,11 @@ variable "dynamodb_partition_key_attribute_name" {
 }
 
 variable "dynamodb_sort_key_attribute_name" {
+  type = string
+  default = null
+}
+
+variable "dynamodb_user_id_attribute_name" {
   type = string
   default = null
 }

@@ -7,6 +7,7 @@ client = boto3.client('dynamodb')
 partition_key_attribute_name = os.environ.get('DYNAMODB_PARTITION_KEY_ATTRIBUTE_NAME')
 sort_key_attribute_name = os.environ.get('DYNAMODB_SORT_KEY_ATTRIBUTE_NAME')
 history_table_name = os.environ.get('DYNAMODB_HISTORY_TABLE_NAME')
+dynamodb_user_id_attribute_name = os.environ.get('DYNAMODB_USER_ID_ATTRIBUTE_NAME')
 
 
 def get_original_item_id(keys):
@@ -66,6 +67,19 @@ def process_record(record):
         item["oldImage"] = {
             "S": json.dumps(old_image)
         }
+
+    if dynamodb_user_id_attribute_name:
+        user_id_attr_value = new_image.get(dynamodb_user_id_attribute_name)
+
+        user_id = None
+        if user_id_attr_value and user_id_attr_value.get("S"):
+            item["userID"] = {
+                "S": str(user_id_attr_value["S"])
+            }
+        elif user_id_attr_value and user_id_attr_value.get("N"):
+            item["userID"] = {
+                "N": str(user_id_attr_value["N"])
+            }
 
     response = client.put_item(
         TableName=history_table_name,

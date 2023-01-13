@@ -19,6 +19,7 @@ resource "aws_lambda_function" "stream_reader" {
       "DYNAMODB_PARTITION_KEY_ATTRIBUTE_NAME" = var.dynamodb_partition_key_attribute_name
       "DYNAMODB_SORT_KEY_ATTRIBUTE_NAME"      = var.dynamodb_sort_key_attribute_name
       "DYNAMODB_HISTORY_TABLE_NAME"           = aws_dynamodb_table.history_table.name
+      "DYNAMODB_USER_ID_ATTRIBUTE_NAME"       = var.dynamodb_user_id_attribute_name
     }
   }
 
