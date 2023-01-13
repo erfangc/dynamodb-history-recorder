@@ -33,14 +33,11 @@ Instantiate this Module
 module "requests-history-recorder" {
   source = "../"
 
-  # it's up to you how you obtain the subnet_ids and vpc_id
-  subnet_ids = data.aws_subnet_ids.subnet_ids.ids
-  vpc_id     = data.aws_vpc.default_vpc.id
+  subnet_ids          = data.aws_subnet_ids.subnet_ids.ids
+  vpc_id              = data.aws_vpc.default_vpc.id
+  dynamodb_table_name = aws_dynamodb_table.requests.name
 
-  dynamodb_table_name                   = aws_dynamodb_table.requests.name
-  dynamodb_partition_key_attribute_name = "Id"
-
-  # you might need this if the DynamoDB table being recorded does not already exist
+  # need this if the DynamoDB table being recorded does not already exist
   depends_on = [aws_dynamodb_table.requests]
 }
 ```
