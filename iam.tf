@@ -1,4 +1,4 @@
-resource "aws_iam_role" "stream_reader_lambda_role" {
+resource "aws_iam_role" "history_recorder_lambda_role" {
   assume_role_policy = jsonencode({
     "Version" : "2012-10-17",
     "Statement" : [
@@ -13,7 +13,7 @@ resource "aws_iam_role" "stream_reader_lambda_role" {
   })
 }
 
-resource "aws_iam_policy" "stream_reader_policy" {
+resource "aws_iam_policy" "history_recorder_policy" {
   policy = jsonencode(
     {
       "Version" : "2012-10-17",
@@ -52,15 +52,18 @@ resource "aws_iam_policy" "stream_reader_policy" {
             "dynamodb:GetRecords"
           ],
           "Resource" : [
-            "arn:aws:dynamodb:*:422873008393:table/*",
-            "arn:aws:dynamodb:*:422873008393:table/*/stream/*"
+            "arn:aws:dynamodb:*:422873008393:table/${var.dynamodb_table_name}",
+            "arn:aws:dynamodb:*:422873008393:table/${var.dynamodb_table_name}/stream/*"
           ]
         },
         {
           "Sid" : "VisualEditor1",
           "Effect" : "Allow",
           "Action" : "dynamodb:ListStreams",
-          "Resource" : "*"
+          "Resource" : [
+            "arn:aws:dynamodb:*:422873008393:table/${var.dynamodb_table_name}",
+            "arn:aws:dynamodb:*:422873008393:table/${var.dynamodb_table_name}/stream/*"
+          ]
         }
       ]
     }
@@ -68,7 +71,7 @@ resource "aws_iam_policy" "stream_reader_policy" {
 }
 
 
-resource "aws_iam_role_policy_attachment" "stream_reader_policy_attachment" {
-  policy_arn = aws_iam_policy.stream_reader_policy.arn
-  role       = aws_iam_role.stream_reader_lambda_role.name
+resource "aws_iam_role_policy_attachment" "stream_recorder_policy_attachment" {
+  policy_arn = aws_iam_policy.history_recorder_policy.arn
+  role       = aws_iam_role.history_recorder_lambda_role.name
 }

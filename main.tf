@@ -1,15 +1,15 @@
 resource "aws_cloudwatch_log_group" "function_log_group" {
-  name              = "/aws/lambda/${aws_lambda_function.stream_reader.function_name}"
+  name              = "/aws/lambda/${aws_lambda_function.history_recorder.function_name}"
   retention_in_days = 7
   lifecycle {
     prevent_destroy = false
   }
 }
 
-resource "aws_lambda_function" "stream_reader" {
+resource "aws_lambda_function" "history_recorder" {
 
   function_name    = "${var.dynamodb_table_name}-dynamodb-history-recorder"
-  role             = aws_iam_role.stream_reader_lambda_role.arn
+  role             = aws_iam_role.history_recorder_lambda_role.arn
   filename         = "lambda_code.zip"
   source_code_hash = data.archive_file.python_lambda_package.output_base64sha256
   handler          = "lambda_function.lambda_handler"
@@ -31,8 +31,8 @@ resource "aws_lambda_function" "stream_reader" {
   runtime = "python3.9"
 }
 
-resource "aws_lambda_event_source_mapping" "stream_reader_lambda_event_source_mapping" {
-  function_name     = aws_lambda_function.stream_reader.arn
+resource "aws_lambda_event_source_mapping" "history_recorder_lambda_event_source_mapping" {
+  function_name     = aws_lambda_function.history_recorder.arn
   starting_position = "LATEST"
   event_source_arn  = data.aws_dynamodb_table.dynamodb_table.stream_arn
 }

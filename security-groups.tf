@@ -1,6 +1,6 @@
 resource "aws_security_group" "sg" {
   vpc_id = var.vpc_id
-  name   = "stream_reader_sg"
+  name   = "${var.dynamodb_table_name}_history_recorder"
 }
 
 resource "aws_security_group_rule" "sg-allow-egress" {

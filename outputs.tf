@@ -3,7 +3,7 @@ output "history_table_name" {
 }
 
 output "lambda_function_name" {
-  value = aws_lambda_function.stream_reader.function_name
+  value = aws_lambda_function.history_recorder.function_name
 }
 
 output "lambda_security_group_id" {
