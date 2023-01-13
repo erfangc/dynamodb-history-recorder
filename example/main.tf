@@ -30,7 +30,7 @@ module "orders-recorder" {
 }
 
 resource "aws_dynamodb_table" "trades" {
-  name         = "orders"
+  name         = "trades"
   billing_mode = "PAY_PER_REQUEST"
 
   attribute {
