@@ -26,4 +26,5 @@ module "stream-reader" {
   vpc_id                                = data.aws_vpc.default_vpc.id
   dynamodb_table_name                   = aws_dynamodb_table.requests.name
   dynamodb_partition_key_attribute_name = "Id"
+  depends_on = [aws_dynamodb_table.requests]
 }

@@ -49,11 +49,11 @@ def process_record(record):
         "eventID": {
             "S": event_id,
         },
-        "originalItemId": {
+        "originalItemID": {
             "S": original_item_id,
         },
-        "approximateTimeStamp": {
-            "N": approximate_creation_date_time,
+        "approximateTimestamp": {
+            "N": str(approximate_creation_date_time),
         },
     }
 
